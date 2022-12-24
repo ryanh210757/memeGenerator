@@ -602,7 +602,7 @@ function Meme() {
                     className: "form--button",
                     onClick: getMemeImage
                 },
-                "Get a new meme image \uD83D\uDDBC"
+                "Get a new meme image! \uD83D\uDDBC"
             )
         ),
         _react2.default.createElement("img", { src: meme.randomImage, className: "meme--image" })
