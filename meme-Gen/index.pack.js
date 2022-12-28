@@ -535,24 +535,9 @@ var _memesData2 = _interopRequireDefault(_memesData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Meme() {
-    /**
-     * Challenge: Update our state to save the meme-related
-     * data as an object called `meme`. It should have the
-     * following 3 properties:
-     * topText, bottomText, randomImage.
-     * 
-     * The 2 text states can default to empty strings for now,
-     * amd randomImage should default to "http://i.imgflip.com/1bij.jpg"
-     * 
-     * Next, create a new state variable called `allMemeImages`
-     * which will default to `memesData`, which we imported above
-     * 
-     * Lastly, update the `getMemeImage` function and the markup 
-     * to reflect our newly reformed state object and array in the
-     * correct way.
-     */
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function Meme() {
     var _React$useState = _react2.default.useState({
         topText: "",
         bottomText: "",
@@ -567,6 +552,21 @@ function Meme() {
         allMemeImages = _React$useState4[0],
         setAllMemeImages = _React$useState4[1];
 
+    //update state to display text as changed
+
+
+    function updateState(event) {
+        setMeme(function (prev) {
+            return _defineProperty({
+                topText: "",
+                bottomText: "",
+                randomImage: "http://i.imgflip.com/1bij.jpg"
+            }, event.target.name, event.target.value);
+        });
+    }
+
+    //function that picks a random number and gets image from index
+    //updates state
     function getMemeImage() {
         var memesArray = allMemeImages.data.memes;
         var randomNumber = Math.floor(Math.random() * memesArray.length);
@@ -589,12 +589,18 @@ function Meme() {
             _react2.default.createElement("input", {
                 type: "text",
                 placeholder: "Top text",
-                className: "form--input"
+                className: "form--input",
+                name: "topText",
+                value: meme.topText,
+                onChange: updateState
             }),
             _react2.default.createElement("input", {
                 type: "text",
                 placeholder: "Bottom text",
-                className: "form--input"
+                className: "form--input",
+                name: "bottomText",
+                value: meme.bottomText,
+                onChange: updateState
             }),
             _react2.default.createElement(
                 "button",
@@ -605,7 +611,21 @@ function Meme() {
                 "Get a new meme image! \uD83D\uDDBC"
             )
         ),
-        _react2.default.createElement("img", { src: meme.randomImage, className: "meme--image" })
+        _react2.default.createElement(
+            "div",
+            { className: "meme" },
+            _react2.default.createElement("img", { src: meme.randomImage, className: "meme--image" }),
+            _react2.default.createElement(
+                "h2",
+                { className: "meme--text top" },
+                meme.topText
+            ),
+            _react2.default.createElement(
+                "h2",
+                { className: "meme--text bottom" },
+                meme.bottomText
+            )
+        )
     );
 }
 

@@ -4,11 +4,22 @@ import memesData from "../memesData.js"
 export default function Meme() {
 
     const [meme, setMeme] = React.useState({
-        topText: "ya",
+        topText: "",
         bottomText: "",
         randomImage: "http://i.imgflip.com/1bij.jpg" 
     })
     const [allMemeImages, setAllMemeImages] = React.useState(memesData)
+
+
+    //update state to display text as changed
+    function updateState(event){
+        setMeme(prev => ({
+            topText: "",
+            bottomText: "",
+            randomImage: "http://i.imgflip.com/1bij.jpg",
+            [event.target.name]: event.target.value
+        }))
+    }
     
     //function that picks a random number and gets image from index
     //updates state
@@ -24,14 +35,6 @@ export default function Meme() {
         
     }
 
-    function updateState(event){
-        setMeme(prev => ({
-            topText: "",
-            bottomText: "",
-            randomImage: url,
-            [event.target.name]: event.target.value
-        }))
-    }
     
     return (
         <main>
@@ -59,9 +62,10 @@ export default function Meme() {
                     Get a new meme image! 🖼
                 </button>
             </div>
-            <div>
+            <div className="meme">
                 <img src={meme.randomImage} className="meme--image" />
-                <h2>{meme.topText}</h2>
+                <h2 className="meme--text top">{meme.topText}</h2>
+                <h2 className="meme--text bottom">{meme.bottomText}</h2>
             </div>
         </main>
     )
